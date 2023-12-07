@@ -26,7 +26,13 @@ type Words []Word
 
 func CreateDBPool() (*pgxpool.Pool, error) {
 	url := "postgresql://lWordsAdmin:supersecret@100.66.158.79:5555/lWords"
-	dbPool, err := pgxpool.New(context.Background(), url)
+	config, err := pgxpool.ParseConfig(url)
+	if err != nil {
+		return nil, err
+	}
+	config.MaxConns = 64
+
+	dbPool, err := pgxpool.NewWithConfig(context.Background(), config)
 	if err != nil {
 		return nil, err
 	}
