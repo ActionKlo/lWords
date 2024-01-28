@@ -24,6 +24,11 @@ type Words struct {
 	Level string             `bson:"level"`
 }
 
+type InProgress struct {
+	ID      primitive.ObjectID `bson:"_id"`
+	WordsID primitive.ObjectID `bson:"words_id"`
+}
+
 type StudyResult struct {
 	ID        primitive.ObjectID `bson:"_id"`
 	UserID    primitive.ObjectID `bson:"userID"`
