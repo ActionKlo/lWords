@@ -1,0 +1,11 @@
+.idea
+.env
+
+cmd/pdf
+database/migrations/words_old.json
+database/redis
+database/mongo/users.go
+database/mongo/results.go
+
+web
+
