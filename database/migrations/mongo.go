@@ -160,8 +160,10 @@ func (m Migrations) CreateWordsIndexes() {
 
 	indexModel := mongo.IndexModel{
 		Keys: bson.D{
-			{"english", "text"},
-			{"russian", "text"},
+			{"eng", "text"},
+			{"rus", "text"},
+			{"urk", "text"},
+			{"pln", "text"},
 		},
 	}
 
