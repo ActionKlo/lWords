@@ -12,6 +12,8 @@ type User struct {
 	Username      string             `bson:"username"`
 	Email         string             `bson:"email"`
 	Password      string             `bson:"password"`
+	InProgress    []InProgress       `bson:"inProgress"`
+	CreatedAt     time.Time          `bson:"createdAt"`
 }
 
 type Words struct {
