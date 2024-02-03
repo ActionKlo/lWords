@@ -1,11 +1,19 @@
 .idea
 .env
 
+#app for generate json file from pdf
 cmd/pdf
+
+#databases
 database/migrations/words_old.json
 database/redis
 database/mongo/users.go
 database/mongo/results.go
 
+#grpc
+cmd/grpc_server
+proto
+
+#front
 web
 
