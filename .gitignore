@@ -5,10 +5,10 @@
 cmd/pdf
 
 #databases
-database/migrations/words_old.json
-database/redis
-database/mongo/users.go
-database/mongo/results.go
+internal/database/migrations/words_old.json
+internal/database/redis
+internal/database/mongo/users.go
+internal/database/mongo/results.go
 
 #grpc
 cmd/grpc_server
