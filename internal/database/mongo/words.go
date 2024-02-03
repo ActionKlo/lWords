@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.uber.org/zap"
-	"lWords/models"
+	"lWords/internal/models"
 )
 
 func (m MongoDBService) FindWords(word string) []models.Words {

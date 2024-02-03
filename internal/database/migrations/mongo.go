@@ -10,7 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.uber.org/zap"
 	"io"
-	"lWords/models"
+	"lWords/internal/models"
 	"os"
 	"time"
 )
