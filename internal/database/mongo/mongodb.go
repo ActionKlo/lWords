@@ -21,13 +21,13 @@ type Mongo struct {
 	DBName   string
 }
 
-type MongoDBService struct {
+type DBService struct {
 	client *mongo.Client
 	cfg    *Config
 	log    *zap.Logger
 }
 
-func NewMongoDB(log *zap.Logger, cfg *Config) *MongoDBService {
+func NewMongoDB(log *zap.Logger, cfg *Config) *DBService {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s",
 		cfg.Mongo.Username,
 		cfg.Mongo.Password,
@@ -38,7 +38,7 @@ func NewMongoDB(log *zap.Logger, cfg *Config) *MongoDBService {
 		log.Fatal("failed to connect to MongoDBService", zap.Error(err))
 	}
 
-	return &MongoDBService{
+	return &DBService{
 		client: client,
 		cfg:    cfg,
 		log:    log,

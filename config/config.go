@@ -3,14 +3,16 @@ package config
 import (
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
-	"lWords/database/migrations"
-	"lWords/database/mongo"
+	"lWords/internal/api"
+	"lWords/internal/database/migrations"
+	"lWords/internal/database/mongo"
 	"log"
 )
 
 type (
 	Config struct {
 		Mongo
+		WebAPI
 	}
 
 	Mongo struct {
@@ -22,11 +24,17 @@ type (
 		Port     string `mapstructure:"MONGO_PORT"`
 		DBName   string `mapstructure:"MONGO_DB_NAME"`
 	}
+
+	WebAPI struct {
+		Host string `mapstructure:"WEB_HOST"`
+		Port string `mapstructure:"WEB_PORT"`
+	}
 )
 
 type Services struct {
 	Migrations *migrations.Migrations
-	MongoDB    *mongo.MongoDBService
+	MongoDB    *mongo.DBService
+	WebAPI     *api.EchoServer
 }
 
 func New() *Config {
@@ -41,6 +49,10 @@ func New() *Config {
 	}
 
 	if err := v.Unmarshal(&appConfig.Mongo); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := v.Unmarshal(&appConfig.WebAPI); err != nil {
 		log.Fatal(err)
 	}
 	return &appConfig
@@ -59,16 +71,22 @@ func (c *Config) NewServices(logger *zap.Logger) *Services {
 	})
 
 	mongodb := mongo.NewMongoDB(logger, &mongo.Config{Mongo: mongo.Mongo{
-		Uri:      c.URI,
-		Host:     c.Host,
-		Port:     c.Port,
-		Username: c.Username,
-		Password: c.Password,
-		DBName:   c.DBName,
+		Uri:      c.Mongo.URI,
+		Host:     c.Mongo.Host,
+		Port:     c.Mongo.Port,
+		Username: c.Mongo.Username,
+		Password: c.Mongo.Password,
+		DBName:   c.Mongo.DBName,
 	}})
+
+	webAPI := api.NewEchoServer(logger, mongodb, &api.Config{
+		Host: c.WebAPI.Host,
+		Port: c.WebAPI.Port,
+	})
 
 	return &Services{
 		Migrations: mongomig,
 		MongoDB:    mongodb,
+		WebAPI:     webAPI,
 	}
 }
