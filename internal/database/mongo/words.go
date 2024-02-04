@@ -28,3 +28,23 @@ func (m DBService) GetWordsList() ([]models.Words, error) {
 
 	return results, nil
 }
+
+func (m DBService) FindWords(word string) ([]models.Words, error) {
+	coll := m.client.Database(m.cfg.DBName).Collection(collectionName)
+
+	filter := bson.D{{"$text", bson.D{{"$search", word}}}}
+
+	cursor, err := coll.Find(context.Background(), filter)
+	if err != nil {
+		m.log.Error("failed to find words", zap.Error(err))
+		return nil, err
+	}
+
+	var result []models.Words
+	if err = cursor.All(context.Background(), &result); err != nil {
+		m.log.Error("failed to cursor words", zap.Error(err))
+		return nil, err
+	}
+
+	return result, nil
+}

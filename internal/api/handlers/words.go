@@ -28,3 +28,13 @@ func (c *Config) GetAllWords(ctx echo.Context) error {
 
 	return ctx.JSON(http.StatusOK, words)
 }
+
+func (c *Config) FindWords(ctx echo.Context) error {
+	words, err := c.mongo.FindWords(ctx.Param("word"))
+	if err != nil {
+		c.logger.Error("failed to get word", zap.Error(err))
+		return ctx.JSON(http.StatusBadRequest, err)
+	}
+
+	return ctx.JSON(http.StatusOK, words)
+}

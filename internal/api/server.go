@@ -33,6 +33,7 @@ func (s *EchoServer) Start() {
 	h := handlers.NewHandlerConfig(s.mongo, s.logger)
 
 	app.GET("/words", h.GetAllWords)
+	app.GET("/words/:word", h.FindWords)
 
 	if err := app.Start(fmt.Sprintf(":%s", s.cfg.Port)); err != nil {
 		s.logger.Fatal(fmt.Sprintf("failed to start start server on address %s:%s", s.cfg.Host, s.cfg.Port), zap.Error(err))
