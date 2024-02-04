@@ -1,0 +1,16 @@
+GET http://localhost:5050/words
+Accept: text/plain
+
+> {%
+    client.test("Status code is 200", function () {
+        client.assert(response.status == 200, "Response status is not 200")
+    })
+    client.test("Firt word is \"abandon\"", function () {
+        client.assert(response.body[0].Eng == "abandon", "Response first eng word is not \"abandon\"")
+    })
+    client.test("Get words list first english word", function () {
+        client.assert(response.body.length == 2959, "Response body length is not 2959")
+    })
+ %}
+
+###
