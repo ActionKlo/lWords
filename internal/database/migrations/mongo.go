@@ -162,7 +162,7 @@ func (m Migrations) CreateWordsIndexes() {
 		Keys: bson.D{
 			{"eng", "text"},
 			{"rus", "text"},
-			{"urk", "text"},
+			{"ukr", "text"},
 			{"pln", "text"},
 		},
 	}
