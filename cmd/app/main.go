@@ -20,4 +20,7 @@ func main() {
 
 	mongodb := services.MongoDB // TODO make services "web" "bot" "itd"
 	_ = mongodb
+
+	echoServer := services.WebAPI
+	echoServer.Start()
 }
