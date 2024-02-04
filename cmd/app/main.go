@@ -12,8 +12,10 @@ func main() {
 	services := cfg.NewServices(log)
 
 	migration := services.Migrations
+	// TODO check if base/collections exist or make migrations from .sh file
+	// migration.IfNotExist
 	migration.CreateWords()
-	//TODO add words indexes
+	migration.CreateWordsIndexes()
 	migration.Disconnect()
 
 	mongodb := services.MongoDB // TODO make services "web" "bot" "itd"
