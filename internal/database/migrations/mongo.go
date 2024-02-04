@@ -118,7 +118,7 @@ func (m Migrations) CreateWords() {
 }
 
 func getWordsFromFile() ([]models.Words, error) {
-	jsonFilePath := "database/migrations/words.json"
+	jsonFilePath := "internal/database/migrations/words.json"
 
 	jsonFile, err := os.Open(jsonFilePath)
 	if err != nil {
