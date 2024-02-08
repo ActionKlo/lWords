@@ -16,10 +16,11 @@ func main() {
 	// migration.IfNotExist
 	migration.CreateWords()
 	migration.CreateWordsIndexes()
-	migration.Disconnect()
+	go migration.GenerateSentences()
+	//migration.Disconnect()
 
-	mongodb := services.MongoDB // TODO make services "web" "bot" "itd"
-	_ = mongodb
+	//mongodb := services.MongoDB // TODO make services "web" "bot" "itd"
+	//_ = mongodb
 
 	echoServer := services.WebAPI
 	echoServer.Start()

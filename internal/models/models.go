@@ -17,13 +17,19 @@ type User struct {
 }
 
 type Words struct {
-	ID    primitive.ObjectID `bson:"_id"`
-	Eng   string             `bson:"eng"`
-	Pos   string             `bson:"pos"`
-	Rus   string             `bson:"rus"`
-	Ukr   string             `bson:"ukr"`
-	Pln   string             `bson:"pln"`
-	Level string             `bson:"level"`
+	ID       primitive.ObjectID `bson:"_id"`
+	Eng      string             `bson:"eng"`
+	Pos      string             `bson:"pos"`
+	Rus      string             `bson:"rus"`
+	Ukr      string             `bson:"ukr"`
+	Pln      string             `bson:"pln"`
+	Level    string             `bson:"level"`
+	Examples []Sentences        `bson:"examples"`
+}
+
+type Sentences struct {
+	Ru string `bson:"ru"`
+	En string `bson:"en"`
 }
 
 type InProgress struct {
@@ -45,3 +51,31 @@ type Statistics struct {
 	ID                  primitive.ObjectID `bson:"_id"`
 	CountOfLearnedWords int                `bson:"countOfLearnedWords"`
 }
+
+type (
+	GptBody struct {
+		Model    string     `json:"model"`
+		Stream   bool       `json:"stream"`
+		Messages [1]Message `json:"messages"`
+	}
+
+	Message struct {
+		Role    string `json:"role"`
+		Content string `json:"content"`
+	}
+
+	PostResponse struct {
+		Choices []Choice `json:"choices"`
+	}
+
+	Choice struct {
+		Index        int         `json:"index"`
+		Message      messageResp `json:"message"`
+		FinishReason string      `json:"finish_reason"`
+	}
+
+	messageResp struct {
+		Role    string `json:"role"`
+		Content string `json:"content"`
+	}
+)
