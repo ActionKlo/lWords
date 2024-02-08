@@ -1,4 +1,4 @@
-.idea
+/.idea/
 .env
 
 #app for generate json file from pdf
